@@ -20,69 +20,72 @@ import com.ghanshyam.airlinedcs.service.AirportService;
 public class AirportServiceImpl implements AirportService {
 
 	private final AirportRepository airportRepository;
+// Helpper Method
+	private AirportResponseDto mapToResponseDto(Airport airport) {
+
+		AirportResponseDto responseDto = new AirportResponseDto();
+
+		responseDto.setAirportCode(airport.getAirportCode());
+		responseDto.setAirportName(airport.getAirportName());
+		responseDto.setCity(airport.getCity());
+		responseDto.setCountry(airport.getCountry());
+		responseDto.setActive(airport.getActive());
+
+		return responseDto;
+	}
+// Helper Method
+	private Airport mapToEntity(AirportRequestDto dto) {
+		Airport airport = new Airport();
+		airport.setAirportCode(dto.getAirportCode());
+		airport.setAirportName(dto.getAirportName());
+		airport.setCity(dto.getCity());
+		airport.setCountry(dto.getCountry());
+		airport.setActive(true);
+
+		return airport;
+	}
 
 	public AirportServiceImpl(AirportRepository airportRepository) {
-
-
 		this.airportRepository = airportRepository;
-
-
 	}
 
 	private static final Logger logger = LoggerFactory.getLogger(AirportServiceImpl.class);
 
 	@Override
 	public AirportResponseDto createAirport(AirportRequestDto dto) {
-
-	    logger.info("CreateAirport method started.");
-
-	    // Step 1: Check duplicate airport code
-	    boolean airportExists = airportRepository.existsByAirportCode(dto.getAirportCode());
-
-	    if (airportExists) {
-
-	        logger.warn("Airport with code {} already exists.", dto.getAirportCode());
-
-	        throw new DuplicateAirportException(dto.getAirportCode());
-	    }
-
-	    // Step 2: Create Entity
-	    Airport airport = new Airport();
-
-	    airport.setAirportCode(dto.getAirportCode());
-	    airport.setAirportName(dto.getAirportName());
-	    airport.setCity(dto.getCity());
-	    airport.setCountry(dto.getCountry());
-	    airport.setActive(dto.getActive());
-
-	    logger.info("Saving airport with code {}", airport.getAirportCode());
-
-	    // Step 3: Save Airport
-	    Airport savedAirport = airportRepository.save(airport);
-
-	    logger.info("Airport '{}' created successfully.", savedAirport.getAirportName());
-
-	    // Step 4: Create Response DTO
-	    AirportResponseDto responseDto = new AirportResponseDto();
-
-	    responseDto.setAirportId(savedAirport.getAirportId());
-	    responseDto.setAirportCode(savedAirport.getAirportCode());
-	    responseDto.setAirportName(savedAirport.getAirportName());
-	    responseDto.setCity(savedAirport.getCity());
-	    responseDto.setCountry(savedAirport.getCountry());
-	    responseDto.setActive(savedAirport.getActive());
-
-	    logger.info("CreateAirport method completed.");
-
-	    return responseDto;
+//		Check duplicate airport.
+//		Convert Request DTO → Entity.
+//		Save Entity.
+//		Convert Entity → Response DTO.
+//		Return Response.
+		logger.info("CreateAirport method started.");
+		// Step 1: Check duplicate airport code
+		boolean airportExists = airportRepository.existsByAirportCode(dto.getAirportCode());
+		if (airportExists) {
+			logger.warn("Airport with code {} already exists.", dto.getAirportCode());
+			throw new DuplicateAirportException(dto.getAirportCode());
+		}
+		// Step 2: Convert Request DTO to Entity
+		Airport airport= mapToEntity(dto);
+		logger.info("Saving airport with code {}", airport.getAirportCode());
+		// Step 3: Save Airport
+		Airport savedAirport = airportRepository.save(airport);
+		logger.info("Airport '{}' created successfully.", savedAirport.getAirportName());
+		// Step 4:  Convert Entity to Response DTO
+		AirportResponseDto responseDto = mapToResponseDto(savedAirport);
+		logger.info("CreateAirport method completed.");
+		return responseDto;
 	}
 
 	@Override
 	public AirportResponseDto getAirportById(Long airportId) {
 		logger.info("GetAirportById method is started");
 		Airport airport = airportRepository.findById(airportId)
-				.orElseThrow(() -> new AirportNotFoundException("Airport not found with id: " + airportId));
+				.orElseThrow(() -> new AirportNotFoundException(airportId));
+
 		AirportResponseDto responseDto = new AirportResponseDto();
+
+
 		responseDto.setAirportId(airport.getAirportId());
 		responseDto.setAirportCode(airport.getAirportCode());
 		responseDto.setAirportName(airport.getAirportName());
@@ -123,7 +126,7 @@ public class AirportServiceImpl implements AirportService {
 		logger.info("deleteAirport method started");
 
 		Airport existingAirport = airportRepository.findById(airportId)
-				.orElseThrow(() -> new AirportNotFoundException("Airport not found with id: " + airportId));
+				.orElseThrow(() -> new AirportNotFoundException(airportId));
 
 		String airportName = existingAirport.getAirportName();
 
@@ -142,7 +145,7 @@ public class AirportServiceImpl implements AirportService {
 		logger.info("UpdateAirport method started");
 
 		Airport existingAirport = airportRepository.findById(airportId)
-				.orElseThrow(() -> new AirportNotFoundException("Airport not found with id: " + airportId));
+				.orElseThrow(() -> new AirportNotFoundException(airportId));
 
 		existingAirport.setAirportCode(dto.getAirportCode());
 		existingAirport.setAirportName(dto.getAirportName());

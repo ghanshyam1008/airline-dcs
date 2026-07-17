@@ -7,7 +7,7 @@ import com.ghanshyam.airlinedcs.entity.Airport;
 
 @Repository
 public interface AirportRepository extends JpaRepository<Airport, Long> {
-	
+
 	boolean existsByAirportCode(String airportCode);
 
 }

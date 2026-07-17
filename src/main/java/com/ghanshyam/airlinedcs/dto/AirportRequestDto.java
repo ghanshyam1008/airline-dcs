@@ -2,10 +2,12 @@ package com.ghanshyam.airlinedcs.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 public class AirportRequestDto {
 
 	@NotBlank(message = "Airport code cannot be empty")
+	@Size(min = 3, max = 3, message = "Airport code must be exactly 3 characters")
 	private String airportCode;
 
 	@NotBlank(message = "Airport name cannot be empty")

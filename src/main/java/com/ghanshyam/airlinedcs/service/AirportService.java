@@ -5,7 +5,6 @@ import java.util.List;
 import com.ghanshyam.airlinedcs.dto.AirportRequestDto;
 import com.ghanshyam.airlinedcs.dto.AirportResponseDto;
 import com.ghanshyam.airlinedcs.dto.DeleteResponseDto;
-import com.ghanshyam.airlinedcs.entity.Airport;
 
 public interface AirportService {
 
