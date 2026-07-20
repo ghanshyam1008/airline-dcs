@@ -1,11 +1,16 @@
 package com.ghanshyam.airlinedcs.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -26,6 +31,9 @@ public class Airline {
 	@ManyToOne
 	@JoinColumn(name = "airport_id")
 	private Airport airport;
+
+	@OneToMany(mappedBy = "airline", fetch = FetchType.LAZY)
+	private List<Aircraft> aircrafts = new ArrayList<>();
 
 	public Long getAirlineId() {
 		return airlineId;

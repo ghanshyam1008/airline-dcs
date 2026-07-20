@@ -66,7 +66,7 @@ public class AirlineServiceImpl implements AirlineService {
 				.orElseThrow(() -> new AirportNotFoundException(dto.getAirportId()));
 
 		boolean airlineExists = airlineRepository.existsByAirlineCodeAndAirport_AirportId(dto.getAirlineCode(),
-				dto.getAirportId());
+				dto.getAirportId()); 
 		if (airlineExists) {
 			throw new DuplicateAirlineException(dto.getAirlineCode());
 		}

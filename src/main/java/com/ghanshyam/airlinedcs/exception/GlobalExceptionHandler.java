@@ -48,16 +48,40 @@ public class GlobalExceptionHandler {
 		return ResponseEntity.status(HttpStatus.CONFLICT).body(response);
 
 	}
-	
+
 	@ExceptionHandler(AirlineNotFoundException.class)
 	public ResponseEntity<ErrorResponseDto> handleAirlineNotFoundException(AirlineNotFoundException ex) {
 
-	    ErrorResponseDto response = new ErrorResponseDto();
-	    response.setMessage(ex.getMessage());
-	    response.setStatus(HttpStatus.NOT_FOUND.value());
-	    response.setTimestamp(LocalDateTime.now());
+		ErrorResponseDto response = new ErrorResponseDto();
+		response.setMessage(ex.getMessage());
+		response.setStatus(HttpStatus.NOT_FOUND.value());
+		response.setTimestamp(LocalDateTime.now());
 
-	    return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+	}
+
+	@ExceptionHandler(AircraftNotFoundException.class)
+	public ResponseEntity<ErrorResponseDto> handleAircraftNotFoundException(AircraftNotFoundException ex) {
+
+		ErrorResponseDto response = new ErrorResponseDto();
+
+		response.setMessage(ex.getMessage());
+		response.setStatus(HttpStatus.NOT_FOUND.value());
+		response.setTimestamp(LocalDateTime.now());
+
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+	}
+
+	@ExceptionHandler(DuplicateAircraftException.class)
+	public ResponseEntity<ErrorResponseDto> handleDuplicateAircraftException(DuplicateAircraftException ex) {
+
+		ErrorResponseDto response = new ErrorResponseDto();
+
+		response.setMessage(ex.getMessage());
+		response.setStatus(HttpStatus.CONFLICT.value());
+		response.setTimestamp(LocalDateTime.now());
+
+		return ResponseEntity.status(HttpStatus.CONFLICT).body(response);
 	}
 
 	@ExceptionHandler(MethodArgumentNotValidException.class)
