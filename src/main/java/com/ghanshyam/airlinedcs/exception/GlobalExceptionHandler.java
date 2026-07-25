@@ -97,4 +97,37 @@ public class GlobalExceptionHandler {
 
 	}
 
+	@ExceptionHandler(FlightNotFoundException.class)
+	public ResponseEntity<ErrorResponseDto> handleFlightNotFoundException(FlightNotFoundException ex) {
+
+		ErrorResponseDto error = new ErrorResponseDto();
+	    error.setMessage(ex.getMessage());
+	    error.setStatus(HttpStatus.BAD_REQUEST.value());
+	    error.setTimestamp(LocalDateTime.now());
+
+	    return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+	}
+
+	@ExceptionHandler(DuplicateFlightException.class)
+	public ResponseEntity<ErrorResponseDto> handleDuplicateFlightException(DuplicateFlightException ex) {
+
+		ErrorResponseDto error = new ErrorResponseDto();
+	    error.setMessage(ex.getMessage());
+	    error.setStatus(HttpStatus.BAD_REQUEST.value());
+	    error.setTimestamp(LocalDateTime.now());
+
+	    return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+	}
+
+	@ExceptionHandler(IllegalArgumentException.class)
+	public ResponseEntity<ErrorResponseDto> handleIllegalArgumentException(IllegalArgumentException ex) {
+
+		ErrorResponseDto error = new ErrorResponseDto();
+	    error.setMessage(ex.getMessage());
+	    error.setStatus(HttpStatus.BAD_REQUEST.value());
+	    error.setTimestamp(LocalDateTime.now());
+
+	    return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+	}
+
 }

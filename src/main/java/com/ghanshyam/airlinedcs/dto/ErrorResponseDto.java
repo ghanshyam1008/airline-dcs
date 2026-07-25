@@ -8,8 +8,6 @@ public class ErrorResponseDto {
 	private int status;
 	private LocalDateTime timestamp;
 
-
-
 	public ErrorResponseDto() {
 
 	}
@@ -37,7 +35,7 @@ public class ErrorResponseDto {
 		this.status = status;
 	}
 	public void setTimestamp(LocalDateTime datetime) {
-		this.timestamp = timestamp;
+	    this.timestamp = datetime;
 	}
 	public LocalDateTime getTimestamp() {
 	    return timestamp;
