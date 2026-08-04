@@ -130,4 +130,60 @@ public class GlobalExceptionHandler {
 		return buildErrorResponse(ex.getMessage(), HttpStatus.BAD_REQUEST);
 	}
 
+	@ExceptionHandler(FlightAlreadyInitializedException.class)
+	public ResponseEntity<ErrorResponseDto> handleFlightAlreadyInitializedException(
+			FlightAlreadyInitializedException ex) {
+
+		ErrorResponseDto error = new ErrorResponseDto(ex.getMessage(), HttpStatus.CONFLICT.value(),
+				LocalDateTime.now());
+
+		return new ResponseEntity<>(error, HttpStatus.CONFLICT);
+	}
+
+	@ExceptionHandler(FlightStageNotFoundException.class)
+	public ResponseEntity<ErrorResponseDto> handleFlightStageNotFoundException(FlightStageNotFoundException ex) {
+
+		ErrorResponseDto error = new ErrorResponseDto(ex.getMessage(), HttpStatus.NOT_FOUND.value(),
+				LocalDateTime.now());
+
+		return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+	}
+
+	@ExceptionHandler(InvalidFlightStageException.class)
+	public ResponseEntity<ErrorResponseDto> handleInvalidFlightStageException(InvalidFlightStageException ex) {
+
+		ErrorResponseDto error = new ErrorResponseDto(ex.getMessage(), HttpStatus.BAD_REQUEST.value(),
+				LocalDateTime.now());
+
+		return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+	}
+
+	@ExceptionHandler(FlightAlreadyCancelledException.class)
+	public ResponseEntity<ErrorResponseDto> handleFlightAlreadyCancelledException(FlightAlreadyCancelledException ex) {
+
+		ErrorResponseDto error = new ErrorResponseDto(ex.getMessage(), HttpStatus.CONFLICT.value(),
+				LocalDateTime.now());
+
+		return new ResponseEntity<>(error, HttpStatus.CONFLICT);
+	}
+
+	@ExceptionHandler(FlightAlreadyFinalReleasedException.class)
+	public ResponseEntity<ErrorResponseDto> handleFlightAlreadyFinalReleasedException(
+			FlightAlreadyFinalReleasedException ex) {
+
+		ErrorResponseDto error = new ErrorResponseDto(ex.getMessage(), HttpStatus.CONFLICT.value(),
+				LocalDateTime.now());
+
+		return new ResponseEntity<>(error, HttpStatus.CONFLICT);
+	}
+
+	@ExceptionHandler(PnlNotLoadedException.class)
+	public ResponseEntity<ErrorResponseDto> handlePnlNotLoadedException(PnlNotLoadedException ex) {
+
+		ErrorResponseDto error = new ErrorResponseDto(ex.getMessage(), HttpStatus.BAD_REQUEST.value(),
+				LocalDateTime.now());
+
+		return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+	}
+
 }

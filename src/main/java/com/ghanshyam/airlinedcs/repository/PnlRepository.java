@@ -13,7 +13,9 @@ public interface PnlRepository extends JpaRepository<Pnl, Long> {
 	Optional<Pnl> findByFlight_FlightNumberAndFlightDate(String flightNumber, LocalDate flightDate);
 
 	boolean existsByFlightAndFlightDate(Flight flight, LocalDate flightDate);
-	
+
 	Optional<Pnl> findById(Long id);
+
+	Optional<Pnl> findByFlightAndFlightDate(Flight flight, LocalDate flightDate);
 
 }
